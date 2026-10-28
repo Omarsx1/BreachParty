@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { PlayerContainer } from '../components/player/PlayerContainer';
+---
+
+<MainLayout
+  title="BreachParty — Jugador"
+  description="Tu terminal de juego: alias, respuestas y votos en tiempo real."
+>
+  <PlayerContainer client:only="react" />
+</MainLayout>

@@ -1,0 +1,112 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const ctaBase =
+  'group flex flex-col justify-between gap-4 rounded-2xl border p-5 transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon focus-visible:ring-offset-2 focus-visible:ring-offset-void';
+const ctaPrimary = `${ctaBase} border-neon/50 bg-neon/10 hover:border-neon hover:bg-neon/15`;
+const ctaSecondary = `${ctaBase} border-line bg-panel/70 hover:border-magenta/60 hover:bg-magenta/5`;
+
+const steps = [
+  {
+    title: 'Abre el host',
+    detail: 'Proyecta /host en Teams y comparte el código de 4 letras o el QR.',
+  },
+  {
+    title: 'Entren desde el móvil',
+    detail: 'Cada jugador abre /play, escribe su alias y espera en la sala.',
+  },
+  {
+    title: 'Escriban y voten',
+    detail: '2 prompts por persona, duelos anónimos, votos en vivo y Ciber-Plash al 100%.',
+  },
+];
+---
+
+<MainLayout title="BreachParty — El after office de Seguridad de la Información">
+  <main class="mx-auto flex min-h-dvh w-full max-w-6xl flex-col px-5 py-8 lg:px-8">
+    <header class="flex flex-wrap items-center justify-between gap-2 border-b border-line/60 pb-5">
+      <p class="font-display text-xs font-bold uppercase tracking-[0.32em] text-ink">BreachParty</p>
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">
+        v1.0 · Infosec After Office
+      </p>
+    </header>
+
+    <section class="cyber-grid grid flex-1 items-center gap-10 py-12 lg:grid-cols-[1.1fr_1fr]">
+      <div class="space-y-6">
+        <p class="font-mono text-xs uppercase tracking-[0.3em] text-neon">
+          Quiplash para el equipo de seguridad
+        </p>
+        <h1 class="font-display text-5xl font-bold uppercase leading-[0.92] tracking-tight text-glow lg:text-7xl">
+          El incidente<br />es la fiesta
+        </h1>
+        <p class="max-w-xl text-base leading-relaxed text-muted lg:text-lg">
+          Prompts de phishing, derechos ARCO y políticas de cumplimiento. Respuestas anónimas, votos
+          en vivo y un podio con títulos que nadie pidió. Sin instalar nada: el host en Teams, el
+          móvil en la mano.
+        </p>
+
+        <div class="grid gap-3 sm:grid-cols-2">
+          <a href="/host" class={ctaPrimary}>
+            <span class="font-display text-sm font-bold uppercase tracking-[0.16em] text-neon">
+              Crear sala
+            </span>
+            <span class="text-sm text-muted">
+              Pantalla compartida del host, código, QR y control total de la partida.
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-ink">/host →</span>
+          </a>
+          <a href="/play" class={ctaSecondary}>
+            <span class="font-display text-sm font-bold uppercase tracking-[0.16em] text-magenta">
+              Unirme como jugador
+            </span>
+            <span class="text-sm text-muted">
+              Mobile-first: alias, dos respuestas por ronda y votos sin piedad.
+            </span>
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-ink">/play →</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="space-y-4">
+        <div class="rounded-2xl border border-line/80 bg-panel/60 p-5">
+          <p class="font-mono text-xs uppercase tracking-[0.22em] text-muted">Cómo funciona</p>
+          <ol class="mt-4 space-y-4">
+            {
+              steps.map((step) => (
+                <li class="space-y-1 border-l border-neon/40 pl-4">
+                  <p class="font-display text-sm font-semibold text-ink">{step.title}</p>
+                  <p class="text-sm leading-relaxed text-muted">{step.detail}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div class="rounded-xl border border-line/70 bg-void/50 p-3">
+            <p class="font-mono text-xl text-neon">30</p>
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">prompts infosec</p>
+          </div>
+          <div class="rounded-xl border border-line/70 bg-void/50 p-3">
+            <p class="font-mono text-xl text-neon">60s</p>
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">de escritura</p>
+          </div>
+          <div class="rounded-xl border border-line/70 bg-void/50 p-3">
+            <p class="font-mono text-xl text-neon">+250</p>
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">Ciber-Plash</p>
+          </div>
+        </div>
+
+        <p class="font-mono text-sm leading-relaxed tracking-[0.12em] text-muted">
+          Estado efímero en memoria · Supabase Realtime Broadcast &amp; Presence · sin base de datos.
+        </p>
+      </aside>
+    </section>
+
+    <footer class="border-t border-line/60 py-5 text-center">
+      <p class="font-mono text-xs uppercase tracking-[0.24em] text-muted/80">
+        BreachParty · el único incidente que queremos en el after office
+      </p>
+    </footer>
+  </main>
+</MainLayout>
