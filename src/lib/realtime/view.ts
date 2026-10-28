@@ -212,7 +212,7 @@ export function toPlayerSync(
     round: state.round,
     alias: player.alias,
     score: player.score,
-    admitted: state.phase === 'LOBBY' || assignment !== undefined,
+    admitted: state.phase === 'LOBBY' || state.phase === 'PODIUM' || assignment !== undefined,
     prompts: assignment?.prompts ?? [],
     submittedMatchupIds: state.matchups
       .filter((matchup) => matchup.answers.some((answer) => answer.playerId === playerId))

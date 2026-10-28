@@ -8,7 +8,7 @@ import {
 } from './useHostEngine';
 import { DEFAULT_GAME_CONFIG } from '../types/game';
 import type { GamePrompt, HostState, Matchup, Player, PresenceMeta } from '../types/game';
-import { eligibleVoterIds } from '../lib/realtime/view';
+import { eligibleVoterIds, toPlayerSync } from '../lib/realtime/view';
 
 const RNG_SEED = 20261028;
 
@@ -307,6 +307,33 @@ describe('reducer autoritativo', () => {
     expect(roundTwo.phase).toBe('WRITING');
     expect(roundTwo.round).toBe(2);
     expect(roundTwo.matchups[0]?.id.startsWith('r2m')).toBe(true);
+  });
+
+  it('termina la partida antes de tiempo y pasa al podio', () => {
+    const midGame = answerEverything(started(3));
+    const ended = hostReducer(midGame, { type: 'END', now: 40_000 }, seeded());
+    expect(ended.phase).toBe('PODIUM');
+    expect(ended.podium).not.toBeNull();
+    expect(ended.timer.endsAt).toBeNull();
+    expect(ended.players).toHaveLength(3);
+    expect(toPlayerSync(ended, 'p1')?.admitted).toBe(true);
+  });
+
+  it('no termina una partida que todavía está en el lobby', () => {
+    const lobby = hostWith(3);
+    expect(hostReducer(lobby, { type: 'END', now: 1 }, seeded())).toBe(lobby);
+  });
+
+  it('marca no admitido al que llega con la partida en curso', () => {
+    const writing = started(3);
+    const late = hostReducer(
+      writing,
+      { type: 'PRESENCE', players: presence(4), now: 12_000 },
+      seeded(),
+    );
+    expect(toPlayerSync(late, 'p4')?.admitted).toBe(false);
+    const ended = hostReducer(late, { type: 'END', now: 20_000 }, seeded());
+    expect(toPlayerSync(ended, 'p4')?.admitted).toBe(true);
   });
 
   it('reinicia la partida conservando el roster', () => {

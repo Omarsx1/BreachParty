@@ -1,0 +1,133 @@
+---
+const phases = [
+  {
+    step: 1,
+    name: 'Sala de espera',
+    time: 'sin reloj',
+    detail:
+      'Abres /host en la pantalla compartida. El código de 4 letras y el QR aparecen solos; los jugadores entran desde el móvil con su alias. Con 3 conectados ya se puede iniciar.',
+  },
+  {
+    step: 2,
+    name: 'Escritura',
+    time: '60 s',
+    detail:
+      'Cada jugador recibe 2 prompts de seguridad y datos personales. Nadie sabe con quién está emparejado: los duelos 1v1 se destapan recién al votar.',
+  },
+  {
+    step: 3,
+    name: 'Votación',
+    time: '20 s por duelo',
+    detail:
+      'La pantalla muestra un prompt y dos respuestas anónimas. Todos votan desde el móvil menos los dos autores de ese duelo.',
+  },
+  {
+    step: 4,
+    name: 'Revelación',
+    time: '8 s por duelo',
+    detail:
+      'Se destapan los autores, el porcentaje de votos y los puntos. Si una respuesta se lleva el 100%, cae el Ciber-Plash.',
+  },
+  {
+    step: 5,
+    name: 'Posiciones',
+    time: 'entre rondas',
+    detail:
+      'Tabla parcial para saber a quién culpar. La partida tiene 2 rondas: nadie se salva del segundo intento.',
+  },
+  {
+    step: 6,
+    name: 'Podio',
+    time: 'final',
+    detail:
+      'Los 3 primeros con títulos honoríficos y menciones para el Ciber-Plash, el imán de votos y la pluma veloz.',
+  },
+];
+
+const facts = [
+  { value: '3+', label: 'jugadores para empezar' },
+  { value: '2', label: 'rondas por partida' },
+  { value: '60 s', label: 'para escribir' },
+  { value: '0', label: 'apps que instalar' },
+];
+---
+
+<section id="que-es" class="border-t border-line/60 py-14">
+  <div class="grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
+    <div class="space-y-4">
+      <p class="font-mono text-xs uppercase tracking-[0.3em] text-neon">Qué es BreachParty</p>
+      <h2 class="font-display text-3xl font-bold uppercase leading-tight tracking-tight lg:text-4xl">
+        Un Quiplash de incidentes<br />que sí pasaron
+      </h2>
+      <p class="max-w-xl text-base leading-relaxed text-muted">
+        Es un juego de fiesta en tiempo real para equipos de Seguridad de la Información y Protección
+        de Datos Personales. Todos escriben respuestas ingeniosas a prompts sobre el día a día del
+        equipo —phishing, derechos ARCO, políticas que nadie lee— y luego se votan en duelos anónimos
+        hasta que queda un podio.
+      </p>
+      <p class="max-w-xl text-base leading-relaxed text-muted">
+        Se juega desde el navegador: el host proyecta la pantalla y el resto usa su teléfono. Sin
+        cuentas, sin instalar nada y sin base de datos.
+      </p>
+      <ul class="space-y-2 text-sm text-muted">
+        <li class="flex gap-2">
+          <span class="text-neon">▸</span>
+          Respuestas anónimas hasta la revelación: se vota la gracia, no el cargo.
+        </li>
+        <li class="flex gap-2">
+          <span class="text-neon">▸</span>
+          El host manda: reloj, transiciones y puntajes viven en una sola pestaña.
+        </li>
+        <li class="flex gap-2">
+          <span class="text-neon">▸</span>
+          Dos rondas cortas: entra en un after office sin comerse la reunión siguiente.
+        </li>
+      </ul>
+    </div>
+
+    <div class="grid gap-3 sm:grid-cols-2">
+      {
+        facts.map((fact) => (
+          <div class="flex flex-col justify-center rounded-2xl border border-line/70 bg-panel/50 p-5">
+            <p class="font-mono text-3xl text-neon">{fact.value}</p>
+            <p class="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+              {fact.label}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section id="como-se-juega" class="border-t border-line/60 py-14">
+  <div class="max-w-3xl space-y-3">
+    <p class="font-mono text-xs uppercase tracking-[0.3em] text-magenta">Cómo se juega</p>
+    <h2 class="font-display text-3xl font-bold uppercase tracking-tight lg:text-4xl">
+      Seis fases, dos rondas, un podio
+    </h2>
+    <p class="text-base leading-relaxed text-muted">
+      La partida corre sola: el host controla el reloj y las transiciones; los jugadores solo
+      escriben y votan desde el móvil.
+    </p>
+  </div>
+
+  <ol class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    {
+      phases.map((phase) => (
+        <li class="flex flex-col gap-2 rounded-2xl border border-line/70 bg-panel/40 p-5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-neon">
+              Paso {phase.step}
+            </span>
+            <span class="rounded-full border border-line px-2 py-0.5 font-mono text-xs uppercase tracking-[0.12em] text-muted">
+              {phase.time}
+            </span>
+          </div>
+          <p class="font-display text-lg font-semibold text-ink">{phase.name}</p>
+          <p class="text-sm leading-relaxed text-muted">{phase.detail}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>

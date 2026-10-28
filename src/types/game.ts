@@ -294,6 +294,7 @@ export type HostAction =
   | { type: 'TICK'; now: number }
   | { type: 'START'; now: number }
   | { type: 'SKIP'; now: number }
+  | { type: 'END'; now: number }
   | { type: 'RESTART'; now: number }
   | { type: 'NEW_ROOM'; roomCode: RoomCode; now: number };
 

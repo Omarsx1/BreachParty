@@ -495,6 +495,19 @@ export function hostReducer(
       }
     }
 
+    case 'END': {
+      if (state.phase === 'LOBBY' || state.phase === 'PODIUM') return state;
+      return {
+        ...state,
+        rev: state.rev + 1,
+        phase: 'PODIUM',
+        leaderboard: buildLeaderboard(state.players),
+        podium: buildPodium(state.players),
+        reveal: null,
+        timer: { ...IDLE_TIMER },
+      };
+    }
+
     case 'RESTART': {
       const fresh = createHostState(state.roomCode, state.config);
       return {
@@ -530,6 +543,7 @@ export function hostReducer(
 export interface HostEngineActions {
   start: () => void;
   skip: () => void;
+  end: () => void;
   restart: () => void;
   newRoom: () => void;
 }
@@ -691,6 +705,9 @@ export function useHostEngine(
       },
       skip: () => {
         commit({ type: 'SKIP', now: Date.now() });
+      },
+      end: () => {
+        commit({ type: 'END', now: Date.now() });
       },
       restart: () => {
         commit({ type: 'RESTART', now: Date.now() });

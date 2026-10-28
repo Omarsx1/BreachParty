@@ -48,6 +48,7 @@ export function HostContainer() {
         connection={connection}
         muted={muted}
         onToggleMuted={toggleMuted}
+        onEnd={actions.end}
       />
 
       {error !== null && (

@@ -1,0 +1,63 @@
+---
+const scoreRules = [
+  { value: '+100', label: 'por cada voto que recibe tu respuesta' },
+  { value: '+250', label: 'extra si te llevas el 100% de los votos (Ciber-Plash)' },
+];
+---
+
+<section class="border-t border-line/60 py-14">
+  <div class="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+    <div class="space-y-4">
+      <p class="font-mono text-xs uppercase tracking-[0.3em] text-amber">Puntaje</p>
+      <h2 class="font-display text-2xl font-bold uppercase tracking-tight lg:text-3xl">
+        La gracia paga
+      </h2>
+      <div class="space-y-3">
+        {
+          scoreRules.map((rule) => (
+            <div class="flex items-baseline gap-4 rounded-xl border border-line/70 bg-panel/40 px-4 py-3">
+              <span class="font-mono text-2xl text-neon">{rule.value}</span>
+              <span class="text-sm text-muted">{rule.label}</span>
+            </div>
+          ))
+        }
+      </div>
+      <p class="text-sm leading-relaxed text-muted">
+        Los autores de un duelo no votan en su propio duelo. Si el reloj termina y alguien no
+        escribió, el host completa la respuesta con una frase de reserva para que la partida no se
+        trabe.
+      </p>
+    </div>
+
+    <div class="flex flex-col justify-center gap-4 rounded-2xl border border-neon/30 bg-neon/[0.03] p-6">
+      <p class="font-mono text-xs uppercase tracking-[0.3em] text-neon">Qué necesitas</p>
+      <ul class="space-y-3 text-sm text-muted">
+        <li>
+          <span class="text-ink">Una pantalla</span> para el host: Teams, proyector o TV con
+          <span class="font-mono text-xs text-neon"> /host</span>.
+        </li>
+        <li>
+          <span class="text-ink">Un móvil por jugador</span> con navegador y
+          <span class="font-mono text-xs text-neon"> /play</span>.
+        </li>
+        <li>
+          <span class="text-ink">Nada más</span>: sin cuentas, sin instalar, sin base de datos.
+        </li>
+      </ul>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <a
+          href="/host"
+          class="font-display text-xs font-bold uppercase tracking-[0.16em] text-neon hover:underline"
+        >
+          Crear sala →
+        </a>
+        <a
+          href="/play"
+          class="font-display text-xs font-bold uppercase tracking-[0.16em] text-magenta hover:underline"
+        >
+          Unirme →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
