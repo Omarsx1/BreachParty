@@ -71,7 +71,7 @@ function buildAwards(players: Player[]): PodiumAward[] {
     awards.push({
       label: 'Ciber-Plash',
       alias: ciber.alias,
-      detail: `${ciber.ciberPlashes} duelo(s) con el 100% de los votos`,
+      detail: `${ciber.ciberPlashes} ${ciber.ciberPlashes === 1 ? 'duelo' : 'duelos'} con el 100% de los votos`,
     });
   }
   const magnet = topBy(players, (player) => player.votesReceived);
