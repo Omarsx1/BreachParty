@@ -96,7 +96,9 @@ HostState en memoria                           Sin estado de juego propio
 - **Canales**: un canal `breachparty:<CÓDIGO>` por sala. Host y jugadores se registran en **Presence**; el host reconstruye el roster desde `presenceState` y conserva puntajes al reconectar.
 - **Broadcast**: `state` (vista pública), `player-sync` (prompts asignados y confirmaciones, filtrado por `playerId`), `host-hello` (latido), `submit-answer` y `cast-vote` (jugador → host).
 - **Reloj**: el host publica `endsAt` y `sentAt`. Cada móvil calcula una sola vez el desfase de reloj y cuenta localmente, sin acumular drift.
-- **Reconexión**: el jugador guarda su sesión en `sessionStorage` y al volver pide `player-hello`; el host responde con su asignación y sus envíos/votos.
+- **Reconexión**: el jugador guarda su sesión (`playerId`, alias y sala) en `sessionStorage`. Al recargar, vuelve a entrar con el mismo `playerId`: el host lo reconoce, conserva su puntaje y responde a `player-hello` con su asignación y el estado actual, así que cae en la misma pantalla (prompts ya enviados, voto registrado) en menos de un segundo. Si no vuelve, el host lo marca desconectado y la partida sigue: sus respuestas faltantes se autocompletan al vencer el reloj y no cuenta como votante.
+  - Recargar la pestaña (F5) conserva la identidad. **Cerrar la pestaña y volver a abrirla crea un jugador nuevo**: `sessionStorage` muere con la pestaña. Para eso existe el botón de salir y volver a entrar con el mismo alias, aunque el puntaje no se recupera.
+  - Recargar `/host` sí pierde la partida: el estado vive en su memoria. Los móviles quedan en “Buscando al host” hasta que se abra una sala nueva.
 - **Sin tablas**: todo el estado es efímero y vive en la memoria del host. Recargar `/host` reinicia la partida.
 
 ### Mapa de archivos

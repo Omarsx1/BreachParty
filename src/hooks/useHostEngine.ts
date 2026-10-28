@@ -623,7 +623,15 @@ export function useHostEngine(
       })
       .on('broadcast', { event: REALTIME_EVENTS.PLAYER_HELLO }, (message: { payload: unknown }) => {
         if (!isPlayerHelloPayload(message.payload)) return;
-        sendSyncFrom(stateRef.current, message.payload.playerId);
+        const snapshot = stateRef.current;
+        sendSyncFrom(snapshot, message.payload.playerId);
+        void channel.send({
+          type: 'broadcast',
+          event: REALTIME_EVENTS.STATE,
+          payload: {
+            view: toPlayerView(snapshot, Date.now()),
+          } satisfies StateBroadcast,
+        });
       });
 
     channel.subscribe((status) => {
